@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+.movie-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 1rem;
+}
+
+.movie {
+  background-color: rgba(255, 255, 255, 0.08);
+  width: 300px;
+  border-radius: 10px;
+}
+
+.movie .movie-poster {
+  position: relative;
+  overflow: hidden;
+}
+
+.movie .movie-poster img {
+  display: block;
+  max-width: 100%;
+}
+
+.movie .movie-poster .movie-hidden-overview {
+  padding: 0 1rem 0 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  overflow: auto;
+  max-height: 100%;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+
+.movie .movie-poster:hover .movie-hidden-overview {
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
+}
+
+.movie .movie-info {
+  padding: 0 1rem 0 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #1e1e1e;
+  padding: 1rem;
+  z-index: 1;
+  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .logo {
+  font-size: x-large;
+  font-weight: bold;
+  margin-right: 1.5rem;
+  background-color: #f5c518;
+  color: black;
+  padding: 0 7px 0 7px;
+  border-radius: 5px;
+}
+
+header form {
+  width: 650px;
+}
+
+header form input.search {
+  width: 90%;
+  padding: 10px 15px;
+  border-radius: 10px 0 0 10px;
+  border: none;
+}
+
+header form button.search {
+  width: 10%;
+  background-color: white;
+  padding: 10px 15px;
+  border-radius: 0 10px 10px 0;
+  border: none;
+  border-left: 1px solid #d7cccc;
+}
+
+header form input.search:focus {
+  outline: 0;
+}
+
+.tag {
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.tag.green {
+  background-color: green;
+}
+
+.tag.yellow {
+  background-color: yellow;
+  color: black;
+}
+
+.tag.red {
+  background-color: red;
+}
+/*# sourceMappingURL=index.css.map */
