@@ -1,25 +1,42 @@
 import React, { useEffect, useState } from "react";
-import Movie from "./components/movie";
+import Movie from "./components/Movie";
+import { makeStyles } from "@mui/styles";
+import Pagination from "@mui/material/Pagination";
 
-const DISCOVER = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&page=1`;
+const DISCOVER = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&page=`;
 const SEARCH = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1&query=`;
+
+const useStyles = makeStyles(() => ({
+  ul: {
+    "& .MuiPaginationItem-root": {
+      color: "#fff",
+      border: 0,
+    },
+  },
+}));
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
+
+  const classes = useStyles();
 
   function getMovies(api) {
     fetch(api)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setMovies(data.results);
-        });
-  };
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setMovies(data.results);
+      });
+  }
 
   useEffect(() => {
-    getMovies(DISCOVER);
-  }, []);
+    getMovies(DISCOVER + page);
+  }, [page]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -48,6 +65,16 @@ function App() {
             <i class="bi bi-search"></i>
           </button>
         </form>
+
+        <Pagination
+          style={{ marginLeft: "auto" }}
+          count={100}
+          variant="outlined"
+          color="secondary"
+          classes={{ ul: classes.ul }}
+          page={page}
+          onChange={(event, value) => setPage(value)}
+        />
       </header>
 
       <div className="movie-container">
