@@ -25,11 +25,9 @@ function App() {
   function getMovies(api) {
     fetch(api)
       .then((res) => {
-        console.log(res);
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setMovies(data.results);
       });
   }
