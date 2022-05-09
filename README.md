@@ -1,4 +1,4 @@
-# Popular Movie Reviews
+# Movie Info Search App
 [Popular Movies](https://draggable-analog-clock.vercel.app/)
 
 ## How to use
