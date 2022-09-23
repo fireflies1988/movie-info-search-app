@@ -3,9 +3,6 @@ import Movie from "./components/Movie";
 import { makeStyles } from "@mui/styles";
 import Pagination from "@mui/material/Pagination";
 
-const DISCOVER = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&page=`;
-const SEARCH = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1&query=`;
-
 const useStyles = makeStyles(() => ({
   ul: {
     "& .MuiPaginationItem-root": {
@@ -15,6 +12,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const axios = require("axios");
+
 function App() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,24 +21,25 @@ function App() {
 
   const classes = useStyles();
 
-  function getMovies(api) {
-    fetch(api)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setMovies(data.results);
-      });
-  }
-
   useEffect(() => {
-    getMovies(DISCOVER + page);
+    fetchMoviesAsync(page, searchTerm);
   }, [page]);
 
-  const handleSubmit = (event) => {
+  async function fetchMoviesAsync(page, searchTerm) {
+    let response;
+    if (!searchTerm) {
+      response = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/api/discover?page=${page}`);
+    } else {
+      response = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/api/search?page=${page}&query=${searchTerm}`);
+    }
+    
+    setMovies(response.data.results);
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (searchTerm !== "") {
-      getMovies(SEARCH + searchTerm);
+    if (searchTerm) {
+      fetchMoviesAsync(page, searchTerm);
     }
   };
 
@@ -60,7 +60,7 @@ function App() {
             onChange={handleChange}
           />
           <button type="submit" className="search">
-            <i class="bi bi-search"></i>
+            <i className="bi bi-search"></i>
           </button>
         </form>
 
@@ -76,7 +76,7 @@ function App() {
       </header>
 
       <div className="movie-container">
-        {movies.length > 0 &&
+        {movies?.length > 0 &&
           movies.map((movie) => <Movie key={movie.id} {...movie} />)}
       </div>
     </>
