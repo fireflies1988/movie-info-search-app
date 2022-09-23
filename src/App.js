@@ -28,9 +28,9 @@ function App() {
   async function fetchMoviesAsync(page, searchTerm) {
     let response;
     if (!searchTerm) {
-      response = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/api/discover?page=${page}`);
+      response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/discover?page=${page}`);
     } else {
-      response = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/api/search?page=${page}&query=${searchTerm}`);
+      response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/search?page=${page}&query=${searchTerm}`);
     }
     
     setMovies(response.data.results);
